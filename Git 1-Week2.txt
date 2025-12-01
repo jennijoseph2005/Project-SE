@@ -1,0 +1,155 @@
+Git 1
+
+  Sending multi_folders / text to git
+in git bash run
+cd <path>
+git init
+git remote add origin <gitpath>
+git branch
+git branch -M main
+git status
+git add .
+git commit -m "commit"
+git push -u origin <main>
+
+ Basics Commands
+1) git --version
+2) git config --global user.name "name" (for setting)
+3) git config --list
+4) git remote -v   → which repo our local connected (like origin)
+5) git remote add origin "<link>" → adds repo to local
+6) git push origin main
+7) git pull origin main
+8) git remote remove origin
+9) git remote rename <oldname(origin)> <newname>
+10) git remote set-url <remote-name(origin)> <new-url>
+11) git remote show origin
+12) git fetch <remote-name(origin)>
+
+
+  About branches
+1) git branch   → shows branch name
+2) git branch -a   → list of all branches
+3) git branch <branch-name>   → creates
+4) git branch -d <branch-name>   → deletes
+5) git branch -r   → listing all remote branches
+6) git checkout <branch-name>   → switches
+7) git checkout -b <new-name>   → creates & switch
+8) git remote prune origin   → branch deleted on remote but locally not
+9) git fetch <remote-name> <branch-name>
+     ↳ Fetching specific remote branch
+
+
+
+1)git merge
+    git checkout main         # Switch to the main branch
+    git merge branch-name     # Merge branch-name into main
+
+2)Rebasing a Local Branch onto a Remote Branch
+    git fetch <remote_name>
+	git rebase <remote_name>/<branch_name>
+    Example:
+	git fetch origin
+	git rebase origin/main
+
+3)Undoing Changes
+   1)git reset<file> : Removes the specified file from the staging area but leaves the working directory unchanged 
+   2)git revert <commit> : Unchange from commit 
+
+4)View History:
+    1)git log or git log --oneline  - Shows a history of commits in the repository
+    2)git diff- Displays differences between various commits working directory, and the staging area
+    3)git show <commit>: Shows the details of a specific commit
+
+5)git restore filename - undo changes made to file before staging 
+6)git commit --amend -m "Corrected commit message"- correct committed with the wrong message
+
+
+7)Recovering deleted branches 
+   	git reflog
+	git checkout -b feature-ui <commit_hash>
+
+8)download the latest changes from the remote without merging 
+       	git fetch origin
+8.1)Fetching a Specific Remote Branch
+        git fetch <remote_name> <branch_name>
+
+9)remove accidentally committed  sensitive file from Git history
+	git filter-branch --force --index-filter \
+	"git rm --cached --ignore-unmatch secrets.txt" \
+	--prune-empty --tag-name-filter cat -- --all
+
+10)merge conflit manually
+       Open app.js and resolve the conflict markers (<<<<<<<, =======, >>>>>>>)
+       After resolving:
+             git add app.js
+             git commit  # If Git didn’t auto-create a merge commit
+
+11)don’t want Git to track changes to .log files or node_modules
+       Create or edit a .gitignore file: 
+             In gitignore
+                 *.log
+                 node_modules/
+             If Git was already tracking those files, you need to untrack them first:
+                       git rm -r --cached node_modules
+                       git rm --cached *.log
+                       git commit -m "Stop tracking logs and node_modules"
+
+12)to see who changed a particular line in a file.
+         git blame script.py
+
+13)working on a file but need to switch branches quickly
+         git stash
+         git checkout other-branch
+
+14)ran git stash and now want to restore those changes
+        git stash apply
+
+15)branch is no longer needed
+        git branch -d feature/test
+        Delete remote branch	git push origin --delete feature-ui
+
+16)To check branch is merge 
+	git branch –merged
+
+17Delete multiple local branches at once
+        git branch –d branc1 branch2 branch3
+
+18)Setting the Upstream Branch for Pushing
+       git push --set-upstream <remote_name> <branch_name>
+
+19)Changing Remote URL
+      git remote set-url <remote_name> <new_url>
+
+20)Pruning Deleted Remotes
+     git remote prune <remote_name>
+
+21)Viewing the Remote Repository’s Information
+    git remote show origin
+
+22)Rebasing a Local Branch onto a Remote Branch
+    git fetch origin
+    git rebase origin/main
+
+23)16. Git stash
+# You modified files A and B, but not committed them.
+git stash             # saves changes and reverts to clean state
+git switch another-branch
+# do something else...
+git switch main
+git stash apply       # brings back your changes
+
+
+
+
+
+
+
+
+
+        
+   
+
+
+
+

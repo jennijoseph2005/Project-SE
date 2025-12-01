@@ -1,0 +1,44 @@
+MAVEN JAVA
+Maven java project and pushing to GitHub
+
+Click on file==>new==>other==>Maven==>Maven Project==>next==>next
+
+Archetype-Project Template
+in Filter type - org.apache.maven
+uncheck the box Show the last version of Archetype only
+scroll down and select quickstart version 1.4==>next
+Group Id:(any name) com.app.demo
+Artifact Id:(any name) SampleMavenJavaProject
+then click finish 
+
+then on left side project
+right click on project==>Run as==>mvn clean
+right click on project==>Run as==>mvn install
+right click on project==>Run as==>mvn test
+right click on project==>Run as==>mvn build
+in Goals : clean install test==>Apply==>Run
+after executing .jar is created
+
+right click on project==>Run as==>Java Application
+
+Now push this project to GitHub
+Create new repository==>in Add .gitignore select Maven===>create repository
+
+now gitbash in search bar
+git clone <url>
+cd <folder>
+
+in C find this folder eclipse-workspace
+click on project u created 
+copy all those
+go back go back
+in same folder which contains eclipse-workspace we will find the project folder
+paste in it now in git bash
+git add .
+git commit -m "first commit"
+git push
+
+
+
+
+

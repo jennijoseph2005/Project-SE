@@ -1,0 +1,128 @@
+========================
+ Docker CLI 
+========================
+
+Basic Commands:
+---------------
+docker --version
+    -> Shows the installed Docker version.
+
+docker pull hello-world
+    -> Downloads the hello-world image from Docker Hub.
+
+docker images
+    -> Lists all Docker images available locally.
+
+docker run hello-world
+    -> Runs a container from the hello-world image.
+
+docker ps -a
+    -> Shows all containers (running + stopped).
+docker ps
+    -> Shows only running containers.
+
+docker rm <container_id>
+    -> Deletes a stopped container.
+
+docker rmi <image_name>
+    -> Removes a Docker image.
+
+
+Working with Redis Example:
+---------------------------
+docker pull redis
+    -> Pulls the official Redis image.
+
+docker run --name myredis -d redis
+    -> Runs a Redis container in detached mode with name "myredis".
+
+docker ps
+    -> Shows currently running containers.
+
+docker exec -it myredis redis-cli
+    -> Opens Redis CLI inside the container.
+       Example commands inside Redis:
+       SET name "Alice"
+       GET name
+       exit
+
+docker stop <cid|name>
+    -> Stops a running container.
+
+docker rm <cid|name>
+    -> Deletes the stopped container.
+
+docker rmi <image_name>
+    -> Deletes an image.
+
+
+
+CLI COMMANDS -2
+Building Custom Images:
+
+
+create a folder on desktop named DockerProject1==>inside thatceate folder named Redis==>create an empty file with no extensions
+New textfile name it Dockerfile remove extension .txt
+
+open it and write
+# Example Dockerfile
+FROM redis:latest
+CMD ["redis-server"]
+
+copy the path of folder and in powershell cd <path>
+
+docker build -t myimage .
+    -> Builds a Docker image named "myimage" from current folder.
+
+docker images
+    -> Verify the new image exists.
+---------------------------------
+docker run -d myimage
+    -> Runs a container from myimage.
+
+docker run --name newcontainer -d myimage
+    -> Runs a container with name "newcontainer".
+
+docker ps
+    -> Lists running containers.
+
+save image into local repository then only remote 
+
+docker stop <cid|cname>
+    -> Stops a container.
+
+docker commit <cid> myrepo/myimage:tag
+    -> Saves container changes into a new image.
+see images in docker desktop
+
+docker login
+    -> Logs into Docker Hub.
+
+docker push myrepo/myimage:tag
+    -> Pushes custom image to Docker Hub.
+
+docker rm <cid|name>
+    -> Deletes the stopped container.
+
+docker rmi myrepo/myimage:tag
+    -> Deletes an image.
+docker pull myrepo/myimage:tag
+docker run --name myredisnew -d myrepo/myimage:tag
+docker exec -it myredisnew redis-cli
+exit
+docker logout
+
+Python App Dockerfile Example:
+------------------------------
+FROM python:3.9
+WORKDIR /app
+COPY . /app
+RUN pip install -r requirements.txt
+EXPOSE 5000
+CMD ["python", "app.py"]
+
+docker build -t mypythonapp .
+    -> Build the image.
+
+docker run -p 5000:5000 mypythonapp
+    -> Run the Python app on port 5000.
