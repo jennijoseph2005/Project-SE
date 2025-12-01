@@ -1,0 +1,156 @@
+DOCKER
+
+CREATE AND PUSH DOCKER FILE IMAGE
+sign in in u r docker desktop and docker hub
+create a folder in it write one calculator.js
+// calculator.js
+// Function to add two numbers
+function add(a, b) {
+    return a + b;
+}
+// Function to subtract two numbers
+function subtract(a, b) {
+    return a - b;
+}
+// Function to multiply two numbers
+function multiply(a, b) {
+    return a * b;
+}
+// Function to divide two numbers
+function divide(a, b) {
+    if (b === 0) {
+        return "Cannot divide by zero!";
+    }
+    return a / b;
+}
+// Print the calculations
+console.log("Addition (2 + 3):", add(2, 3));
+console.log("Subtraction (5 - 2):", subtract(5, 2));
+console.log("Multiplication (4 * 3):", multiply(4, 3));
+console.log("Division (10 / 2):", divide(10, 2));
+
+then create a Dockerfile of type file
+FROM node:16-alpine
+WORKDIR /app
+COPY calculator.js /app
+CMD ["node", "calculator.js"]
+
+in power shell run
+cd <path>
+docker build -t simple-calculator .
+docker run simple-calculator
+docker ps
+docker login
+docker tag simple-calculator thahaseena333/simple-calculator
+docker push thahaseena333/simple-calculator
+docker ps -a
+docker rm fe58774a881d(first id of container)
+docker rmi thahaseena333/simple-calculator
+
+see in docker hub
+
+docker pull thahaseena333/simple-calculator
+docker run thahaseena333/simple-calculator
+docker ps -a
+docker rm 75263c884ec4
+docker rmi thahaseena333/simple-calculator
+docker rmi simple-calculator
+docker logout
+
+
+
+
+MODIFY AND PUSH DOCKER IMAGE
+
+docker pull ubuntu
+docker run -it --name newubuntu -d ubuntu
+docker ps
+(cli of ubuntu is bash)
+docker exec it <container id> bash
+git --version
+apt update
+apt install git -y
+git --version
+exit
+docker stop <container-id>
+(saving changes)
+docker commit <container-id> username/newubuntu2025
+(go to docker desktop and in images see it saves successfully)
+docker login
+docker push username/newubuntu2025
+(goto to docker hub in google)
+docker rm <container-id>
+docker rmi username/newubuntu2025
+docker logout
+docker pull username/newubuntu2025
+(in docker desktop we will find)
+(run this as container)
+docker run --name newubuntu2025 -it username/newubuntu2025
+(bash gets opened)
+git --version
+exit 
+docker ps -a
+docker rm <container-id>
+docker rmi username/newubuntu2025
+
+
+
+RUNNING MULTIPLE CONTAINERS USING DOCKER COMPOSE
+
+create a folder named compose
+inside that create docker-compose.yaml
+(go to docker hub and type MySQL for code)
+
+paste this code in docker.yaml
+version: '3'
+
+services:
+  # Database
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    networks:
+      - wpsite
+    # Wordpress
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    ports:
+      - '8000:80'
+    restart: always
+    volumes: ['./:/var/www/html']
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+    networks:
+      - wpsite
+
+networks:
+  wpsite:
+
+volumes:
+  db_data:
+
+
+(go to powershell)
+cd <path> 
+(to read file)
+docker-compose up -d
+(localhost:8000)
+(localhost:8000/wp-admin/)
+
+docker ps
+docker-compose stop
+docker ps
+docker-compose start
+docker-compose stop
+docker-compose down
